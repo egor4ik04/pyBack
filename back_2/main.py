@@ -15,6 +15,8 @@ def main():
     demo_conditional_operators()
     print("\nДемонстрация циклов:")
     demo_cycles()
+    print("\nДемонстрация функций:")
+    demo_funcs()
 
 
 def demo_variables():
@@ -95,7 +97,6 @@ def demo_assignment_operators():
     print(f"Присваивание со сдвигом (a <<= 1): {a} (0b{a:0b})")
 
 
-
 def demo_conditional_operators():
     """Демонстрация условных операторов."""
     age = int(input("Введите любой возраст, например - 20: "))
@@ -144,5 +145,43 @@ def demo_cycles():
             break
         print("Итерация", i)
 
+
+def demo_funcs():
+    '''Демонстрация работы с функциями'''
+
+    def func_basic():
+        """Простая функция без параметров и возвращаемого значения."""
+        print("Это простая функция")
+
+    def func_with_parameters(a, b=5):
+        """Функция с позиционными и именованными параметрами, где второй параметр по умолчанию."""
+        print(f"Параметры: a={a}, b={b}")
+        return a + b
+
+    def func_with_variable_args(*args, **kwargs):
+        """Функция с произвольным числом позиционных и именованных аргументов."""
+        print("Позиционные аргументы:", args)
+        print("Именованные аргументы:", kwargs)
+        return sum(args) + sum(kwargs.values())
+
+    def func_with_special_params(x, y, /, z, *, w=10):
+        """Функция с обязательными позиционными и именованными параметрами.
+
+        x и y должны быть переданы по позиции.
+        z уникален.
+        w является именованным параметром с значением по умолчанию.
+        """
+        return (x + y + z) * w
+
+    # Вызов функций и вывод результатов
+    func_basic()
+    print("Результат func_with_parameters(3, 4):", func_with_parameters(3, 4))
+    print("Результат func_with_parameters(3):", func_with_parameters(3))
+    print("Результат func_with_variable_args(1, 2, 3, x=4, y=5):",
+          func_with_variable_args(1, 2, 3, x=4, y=5))
+    print("Результат function_with_special_params(1, 2, 3, w=4):",
+          func_with_special_params(1, 2, 3, w=4))
+    print("Результат function_with_special_params(1, 2, w=4, z=3):",
+          func_with_special_params(1, 2, w=4, z=3))
 
 main()
