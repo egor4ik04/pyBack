@@ -9,6 +9,8 @@ from fastapi import (
     Response, # объект Response - инфо об ответе обработанного запроса
     Cookie, # доступ к кукам
     Form, # доступ к данным формы
+    File, # обмен файлами в запросах
+    UploadFile
 )
 from fastapi.responses import (
     HTMLResponse, # отправка в response htmlcontent
@@ -20,7 +22,6 @@ from pydantic import (
     BaseModel, # наследники выступают как расшифровываемая модель входных данных
     Field, # для детальной настройки атрибутов модели
 )
-from fastapi import File, UploadFile
 
 # Работа с классами:
 #   Создайте класс User с полями id, username, email и password.
