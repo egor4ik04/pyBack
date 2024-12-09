@@ -1,0 +1,14 @@
+Установлю необходимые зависимости для проекта
+-FastAPI фреймворк:
+$ pip install fastapi
+-ASGI веб-сервер :
+$ pip install 'uvicorn[standard]'
+
+Запуск сервера (из папки проекта в разделе с файлом main.py):
+$ uvicorn main:app --reload
+Выключение - ^C
+Адрес сервера по умолчанию:
+http://127.0.0.1:8000
+
+для работы с Form:
+$ pip install python-multipart
