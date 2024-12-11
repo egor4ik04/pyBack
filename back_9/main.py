@@ -42,6 +42,7 @@ def read_root():
 
 @app.get("/favicon.ico")
 def favicon():
+    '''Отображение иконки сайта (чтобы не выкидывал неудачное обращение в консоль)'''
     return FileResponse("public/favicon.ico")
 
 @app.get("/users/")

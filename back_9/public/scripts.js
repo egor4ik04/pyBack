@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const updatePostForm = document.getElementById("update-post-form");
     const saveUpdatePostBtn = document.getElementById("save-update-post");
 
-    // Функция для получения всех пользователей
     async function getAllUsers() {
         const response = await fetch("/users/");
         const data = await response.json();
@@ -50,10 +49,8 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // Получить всех пользователей
     fetchUsersBtn.addEventListener("click", getAllUsers);
 
-    // Создать пользователя
     createUserBtn.addEventListener("click", async () => {
         const user = {
             username: userForm.username.value,
@@ -73,13 +70,12 @@ document.addEventListener("DOMContentLoaded", function() {
         if (data.status === "success") {
             alert("Пользователь успешно создан");
             userForm.reset();
-            getAllUsers(); // Обновить таблицу пользователей после создания
+            getAllUsers();
         } else {
             alert(data.message);
         }
     });
 
-    // Показать форму для обновления пользователя
     function showUpdateUserForm(user) {
         updateUserForm.style.display = "block";
         document.getElementById("update-user-id").value = user.id;
@@ -88,7 +84,6 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("update-password").value = user.password;
     }
 
-    // Сохранить обновление пользователя
     updateUserBtn.addEventListener("click", async () => {
         const userId = document.getElementById("update-user-id").value;
         const updatedUser = {
@@ -108,14 +103,13 @@ document.addEventListener("DOMContentLoaded", function() {
         const data = await response.json();
         if (data.status === "success") {
             alert("Данные пользователя обновлены");
-            getAllUsers(); // Обновить таблицу пользователей после обновления
-            updateUserForm.style.display = "none"; // Скрыть форму обновления
+            getAllUsers();
+            updateUserForm.style.display = "none";
         } else {
             alert(data.message);
         }
     });
 
-    // Удалить пользователя
     async function deleteUser(userId) {
         const response = await fetch(`/users/${userId}`, {
             method: "DELETE"
@@ -124,13 +118,12 @@ document.addEventListener("DOMContentLoaded", function() {
         const data = await response.json();
         if (data.status === "success") {
             alert("Пользователь удалён");
-            getAllUsers(); // Обновить таблицу пользователей после удаления
+            getAllUsers();
         } else {
             alert(data.message);
         }
     }
 
-    // Получить все посты
     fetchPostsBtn.addEventListener("click", async () => {
         const response = await fetch("/posts/");
         const data = await response.json();
@@ -146,13 +139,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 
                 const actionsCell = row.insertCell(4);
                 
-                // Добавляем кнопку обновления
                 const updatePostBtn = document.createElement("button");
                 updatePostBtn.textContent = "Обновить";
                 updatePostBtn.onclick = () => showUpdatePostForm(post);
                 actionsCell.appendChild(updatePostBtn);
 
-                // Добавляем кнопку удаления
                 const deletePostBtn = document.createElement("button");
                 deletePostBtn.textContent = "Удалить";
                 deletePostBtn.onclick = () => deletePost(post.id);
@@ -163,7 +154,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // Создать пост
     createPostBtn.addEventListener("click", async () => {
         const post = {
             title: postForm.title.value,
@@ -183,14 +173,12 @@ document.addEventListener("DOMContentLoaded", function() {
         if (data.status === "success") {
             alert("Пост успешно создан");
             postForm.reset();
-            // Обновление таблицы постов после создания
             fetchPostsBtn.click();
         } else {
             alert(data.message);
         }
     });
 
-    // Показать посты пользователя
     async function viewUserPosts(userId) {
         const response = await fetch(`/posts/`);
         const data = await response.json();
@@ -222,7 +210,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // Форма для обновления поста
     function showUpdatePostForm(post) {
         updatePostForm.style.display = "block";
         document.getElementById("update-post-id").value = post.id;
@@ -231,7 +218,6 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("update-post-user-id").value = post.user_id;
     }
 
-    // Сохранить изменения в посте
     saveUpdatePostBtn.addEventListener("click", async () => {
         const postId = document.getElementById("update-post-id").value;
         const updatedPost = {
@@ -251,14 +237,13 @@ document.addEventListener("DOMContentLoaded", function() {
         const data = await response.json();
         if (data.status === "success") {
             alert("Пост обновлен");
-            fetchPostsBtn.click(); // Перезагрузить таблицу постов после обновления
-            updatePostForm.style.display = "none"; // Скрыть форму обновления
+            fetchPostsBtn.click();
+            updatePostForm.style.display = "none";
         } else {
             alert(data.message);
         }
     });
 
-    // Удалить пост
     async function deletePost(postId) {
         const response = await fetch(`/posts/${postId}`, {
             method: "DELETE"
@@ -267,7 +252,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const data = await response.json();
         if (data.status === "success") {
             alert("Пост удалён");
-            fetchPostsBtn.click(); // Перезагрузить таблицу постов после удаления
+            fetchPostsBtn.click();
         } else {
             alert(data.message);
         }
