@@ -119,6 +119,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if (data.status === "success") {
             alert("Пользователь удалён");
             getAllUsers();
+            fetchPostsBtn.click();
         } else {
             alert(data.message);
         }

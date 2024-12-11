@@ -64,8 +64,8 @@ def get_user(user_id: int, db: Session = Depends(get_db)):
 @app.post("/users/")
 def create_user(user: UserModel, db: Session = Depends(get_db)):
     """Добавление нового пользователя."""
-    if db.query(User).filter(User.username == user.username or
-                             User.email == user.email).first():
+    if db.query(User).filter(
+        or_(User.username == user.username, User.email == user.email)).first():
         return {"status": "error", "message": "Пользователь с такими данными уже есть"}
     db_user = User(username=user.username, email=user.email, password=user.password)
     db.add(db_user)
@@ -99,6 +99,7 @@ def delete_user(user_id: int, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.id == user_id).first()
     if not user:
         return {"status": "error", "message": f"Пользователь с ID {user_id} не найден"}
+    db.query(Post).filter(Post.user_id == user_id).delete()
     db.delete(user)
     db.commit()
     return {"status": "success", "message": f"Пользователь с ID {user_id} удалён"}
