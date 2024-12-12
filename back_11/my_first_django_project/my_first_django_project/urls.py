@@ -15,18 +15,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from django.urls import include, path#, re_path
-from my_first_app import views
+from django.urls import path
+from my_first_app.views import extended_with_path, hello_world
+from my_first_app.urls import HomeView, ExtendedView
 
 urlpatterns = [
-    path('nested/', include('nested_app.urls')),
-    path('hello', views.hello_world, name='hello_world'),
-    path('cookie', views.show_cookies, name='show_cookies'),
-    path('json', views.json_example, name='json_example'),
-    path('redirect1', views.temp_redirect_example, name='temp_redirect_example'),
-    path('redirect2', views.redirect_example, name='redirect_example'),
-    path("hello2", views.hello_2),
-    # re_path(r'^hello/(?P<name>\D+)/(?P<age>\d+)', views.hello_world, name='hello_world'),
-    # re_path(r'^hello/(?P<name>\D+)', views.hello_world, name='hello_world'),
-    # re_path(r'^hello', views.hello_world, name='hello_world'),
+    path('', hello_world, name='hello_world'),
+    path('home', HomeView.as_view(), name='home'),
+    path('extended', ExtendedView.as_view(), name='extended'),
+    path('extendedpath', extended_with_path, name='extended'),
 ]
