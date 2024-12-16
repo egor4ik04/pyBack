@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Данные автора</title>
+</head>
+<body>
+    <h1>{{ author.name }} - Данные</h1>
+
+    <div class="button-group">
+        <a href="{% url 'home' %}">Главная</a>
+    </div>
+
+    <h2>Дополнительные данные автора</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_table }}
+        <button type="submit">Сохранить</button>
+    </form>
+
+    {% if author_details %}
+        <h3>Текущие данные:</h3>
+        <p><strong>Email:</strong>
+            {% if author_details.email %}
+                {{ author_details.email }}
+            {% else %}
+                 -
+            {% endif %}
+        </p>
+        <p><strong>Телефон:</strong>
+            {% if author_details.phone %}
+                {{ author_details.phone }}
+            {% else %}
+                 -
+            {% endif %}
+        </p>
+
+        <form method="post" action="{% url 'delete_author_details' %}?author_id={{ author.id }}">
+            {% csrf_token %}
+            <button type="submit">Удалить данные</button>
+        </form>
+    {% endif %}
+</body>
+</html>
